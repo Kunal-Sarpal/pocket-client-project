@@ -25,8 +25,8 @@ const Card = () => {
                 </h2>
                 <p className="text-sm text-gray-500">In Stock: 20</p>
                 <div className='flex gap-3'>
-                <p className="text-lg font-semibold text line-through text-zinc-500 text-right w">Rs. 125</p>
-                <p className="text-lg font-semibold text-gray-800 ">25</ p>
+                <p className="text-lg  text line-through text-zinc-500 font-normal text-right w">Rs. 125</p>
+                <p className="text-lg font-semibold text-gray-800 ">Rs. 25</ p>
 
                 </div>
 

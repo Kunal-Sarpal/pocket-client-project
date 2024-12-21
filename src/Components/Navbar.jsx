@@ -1,7 +1,9 @@
 import React from 'react';
 import { FaTachometerAlt, FaEnvelope, FaDownload, FaUsers, FaCog, FaVideo, FaCamera } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 
 const Sidebar = () => {
+    const navigate = useNavigate();
     return (
         <div className="text-[#191919] h-screen flex flex-col bg-white">
             {/* Brand Name */}
@@ -23,9 +25,9 @@ const Sidebar = () => {
                 </li>
 
                 {/* Other Links */}
-                <li className="hover:bg-gray-100 rounded-md p-2 flex items-center space-x-4 cursor-pointer">
+                <li onClick={() => navigate("/admin")} className="hover:bg-gray-100 rounded-md p-2 flex items-center space-x-4 cursor-pointer ">
                     <FaEnvelope className="text-lg" />
-                    <span>Messages</span>
+                    <span>Admin</span>
                 </li>
                 <li className="hover:bg-gray-100 rounded-md p-2 flex items-center space-x-4 cursor-pointer">
                     <FaDownload className="text-lg" />
