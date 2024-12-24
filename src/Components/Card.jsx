@@ -1,46 +1,63 @@
 import React, { useContext } from 'react';
 import { paymentContext } from '../paymentContext';
+import { Button } from '@mui/material';
 
 const Card = () => {
-    const {setPayment} = useContext(paymentContext)
-    const handlePayment = () =>{
-        setPayment((_)=>!_)
-    }
-    return (
+    const { setPayment } = useContext(paymentContext);
 
-        <div className="border border-gray-200 rounded-lg overflow-hidden bg-white hover:shadow border-b-zinc-400 transition-shadow duration-300">
+    const handlePayment = () => {
+        setPayment((prev) => !prev);
+    };
+
+    return (
+        <div className="shadow-md border border-zinc-300 rounded-lg bg-white hover:shadow-xl transition-shadow duration-300 relative overflow-hidden">
+            {/* Stock Indicator */}
+           
+
             {/* Image Section */}
-            <div className="h-40 bg-gray-200 flex items-center justify-center p-2">
+            <div className="bg-gray-200 flex items-center justify-center p-2">
                 <img
                     src="https://www.scdn.co/i/_global/open-graph-default.png"
-                    alt="Product"
-                    className="h-full rounded-md w-full object-cover"
+                    alt="Spotify Premium"
+                    className="w-full h-full object-cover rounded-md"
                 />
             </div>
 
             {/* Content Section */}
-            <div className="p-2 space-y-3">
-                <h2 className="text-xl font-semibold text-gray-900 truncate">
-                    Spotify Premium
-                </h2>
-                <p className="text-sm text-gray-500">In Stock: 20</p>
-                <div className='flex gap-3'>
-                <p className="text-lg  text line-through text-zinc-500 font-normal text-right w">Rs. 125</p>
-                <p className="text-lg font-semibold text-gray-800 ">Rs. 25</ p>
+            <div className="p-4 space-y-4">
+                <h2 className="text-2xl font-bold text-zinc-700 truncate">Spotify Premium</h2>
+                <hr className="border-t border-zinc-300" />
 
+                <div className="flex gap-2 items-center">
+                    <p className="text-xl text-zinc-700 font-semibold  ">₹25</p>
+                    <p className="text-md font-semibold text-zinc-500 pb-1 line-through">₹125</p>
+                    
                 </div>
+                <p className='text-red-500 leading-snug'>
+                    5 pieces left at this price!
+                </p>
+               
 
                 {/* Action Buttons */}
-                <div className="flex ">
+                <div className="flex gap-2">
                     {/* Primary Action: Buy Now */}
-                    <button onClick={() => handlePayment()} className="w-full border text-[#9333EA] border-[#9333EA]  rounded-l-md border-r-0 hover:scale-95 shadow  hover:shadow focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-all duration-100">
-                        Buy Now
-                    </button>
+                    <Button
+                        variant='outlined'
+                        color='secondary'
+                        onClick={handlePayment}
+
+                    >
+                        Buy
+                    </Button>
+                    <Button
+                        variant='outlined'
+
+                    >
+                        Add to Cart
+                    </Button>
 
                     {/* Secondary Action: Add to Cart */}
-                    <button className="w-full border border-black bg-gray-200 border-l-0 text-gray-800 py-2 rounded-r-lg hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50 transition-all duration-300">
-                        Add to Cart
-                    </button>
+                   
                 </div>
             </div>
         </div>

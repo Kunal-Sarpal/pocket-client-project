@@ -31,13 +31,7 @@ const Admin = () => {
                         <ManageOrders />
                     </section>
 
-                    {/* Product Upload Section */}
-                    <section className="w-1/3  border-l   border-zinc-400 flex justify-top items-start p-10 flex-col">
-                        <AddProduct />
-                    </section>
-
-
-                    {/* Order Management Section */}
+                    
                    
                 </div>
         </div>
