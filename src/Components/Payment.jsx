@@ -65,8 +65,8 @@ const Payment = () => {
             <div className="absolute top-4 left-4 p-2 bg-[#9233eaa1] text-white  rounded-full shadow-md hover:shadow-lg transform transition-all duration-300 hover:scale-110 cursor-pointer">
                 <IoMdArrowBack size={30} onClick={() => setPayment((prev) => !prev)} />
             </div>
-            <div className="flex justify-between items-center">
-                <div className="w-1/2">
+            <div className="lg:flex  justify-between items-center">
+                <div className="lg:w-1/2">
                     {/* Step 1: Scanner Screen */}
                         <div className="text-center">
                             <h2 className="text-xl font-semibold text-gray-900 mb-6">Scan UPI QR Code</h2>
@@ -79,7 +79,7 @@ const Payment = () => {
                     
                 </div>
 
-                <div className="w-1/2 pl-6">
+                <div className="lg:w-1/2 pl-6">
                     {/* Step 2: UPI Transaction Form */}
                 
                         <div>
