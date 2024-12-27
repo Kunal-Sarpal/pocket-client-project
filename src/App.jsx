@@ -5,13 +5,15 @@ import Admin from './pages/Admin'
 import { Route, Routes } from 'react-router-dom'
 
 const App = () => {
+
+
   return (
     <PaymentProvider>
 
       <div className=' transition-all ease-in-out duration-300 '>
         
-
         <Routes>
+       
           <Route path='/' element={<Homepage />} />
           <Route path='/admin' element={<Admin />} />
         </Routes>

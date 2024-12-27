@@ -4,8 +4,12 @@ import '../index.css';
 import Navbar from '../Components/Navbar';
 import { paymentContext } from '../paymentContext';
 import Payment from '../Components/Payment';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Homepage = () => {
+    const data = useSelector((state) => state.appdata.data)
+    console.log(data[0])
+    // const dispatch = useDispatch()
     const {payment} = useContext(paymentContext);
     return (
         <>
@@ -28,10 +32,10 @@ const Homepage = () => {
 
                     {/* Cards Section */}
                     <div className="grid xl:grid-cols-4  grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                        <Card />
-                        <Card />
-                        <Card />
-                        <Card />
+                        {data.map((item,index) => (
+                            <Card key={index} title={item.title} stock={item.stock} like={item.like} price={item.price} />
+                        ))}
+                       
                     </div>
                 </div>
             </div> : <div className='w-full bg-green-100 h-screen flex justify-center items-center'><Payment /></div>}
