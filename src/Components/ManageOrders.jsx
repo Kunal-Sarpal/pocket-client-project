@@ -45,7 +45,7 @@ const ManageOrders = () => {
     };
 
     return (
-        <div className="bg-white p-5 shadow-md h-full overflow-y-auto">
+        <div className="bg-white p-5 shadow-md w-full h-full overflow-y-auto">
             <h1 className="text-3xl w-fit font-extrabold text-zinc-700 mb-5">
                 Manage Orders
                 <hr className="mt-2 mb-4" />
