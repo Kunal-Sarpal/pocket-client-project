@@ -66,7 +66,7 @@ const Card = ({ id, price, title, stock, like }) => {
                         variant="outlined"
                         onClick={handleAddToCart}
                     >
-                        Add to Cart
+                        Add to fav
                     </Button>
                 </div>
 

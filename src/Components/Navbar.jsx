@@ -13,7 +13,7 @@ const Sidebar = () => {
     const cartItem = useSelector(state=>state.cartdata.cartItems);
     console.log(cartItem.length);
     return (
-        <div className="text-[#191919] h-screen flex flex-col bg-white">
+        <div className="text-[#191919] h-screen flex flex-col bg-white ">
             {/* Brand Name */}
             <div className="p-4 border-b-2 w-96 z-[0]  shadow-b border-gray-200">
                 <h1 className="text-2xl  text-zinc-700 poppins-light animate duration-200 flex font-extrabold">Pocket <SiPocketcasts size={16} className='text-zinc-700 rotate-[140deg]' /></h1>
