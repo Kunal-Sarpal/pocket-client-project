@@ -15,8 +15,36 @@ const Sidebar = () => {
     return (
         <div className="text-[#191919] h-screen flex flex-col bg-white ">
             {/* Brand Name */}
-            <div className="p-4 border-b-2 w-96 z-[0]  shadow-b border-gray-200">
-                <h1 className="text-2xl  text-zinc-700 poppins-light animate duration-200 flex font-extrabold">Pocket <SiPocketcasts size={16} className='text-zinc-700 rotate-[140deg]' /></h1>
+            <div className="p-4 border-b-2 w-96 z-[0]  shadow-b border-gray-200 flex gap-36">
+                <h1 className="text-2xl  text-zinc-700 poppins-light animate duration-200 flex font-extrabold">
+                    Pocket <SiPocketcasts size={14} className='text-zinc-700 rotate-[140deg]' /></h1>
+                        <Badge
+                            badgeContent={cartItem.length == 0 ? 1 : cartItem.length }
+                            color="error"
+                            overlap="circular"
+                            sx={{
+                                '& .MuiBadge-dot': {
+                                    borderRadius: '50%',
+                                    width: 10,
+                                    height: 10,
+                                    backgroundColor: '#FF0000',
+                                },
+                                '& .MuiBadge-badge': {
+                                    fontSize: '0.75rem',
+                                    height: 20,
+                                    minWidth: 20,
+                                    backgroundColor: '#FF6F61',
+                                    color: '#fff',
+                                },
+                            }}
+                        >
+                            <div className="flex flex-col justify-center items-center ">
+                                <IoCartOutline onClick={() => navigate('/cart')} 
+                                    className="border-2 rounded-full p-1 border-zinc-600 hover:scale-105 transition-transform duration-200 hover:cursor-pointer hover:bg-zinc-100"
+                                    size={35}
+                                />
+                            </div>
+                        </Badge>
             </div>
 
             {/* Search Bar */}
@@ -38,39 +66,18 @@ const Sidebar = () => {
                     <span>Admin</span>
                 </li>
               
-                
+                <div className="mt-auto py-4 border-t-2 border-gray-200">
+                    <div className="flex items-center space-x-4">
+                       
+                        
+                       
+
+                    </div>
+                </div>
             </ul>
 
             {/* Profile Section */}
-            <div className="mt-auto p-4 border-t-2 border-gray-200">
-                <div className="flex items-center space-x-4">
-                    <img
-                        src="https://via.placeholder.com/40"
-                        alt="Profile"
-                        className="rounded-full w-10 h-10"
-                    />
-                    <div className='border-zinc-600 '>
-                        <Badge
-                            badgeContent={cartItem.length}
-                            color='error'
-                            overlap="circular"
-                            sx={{
-                                '& .MuiBadge-dot': {
-                                    borderRadius: '80%',
-                                    width: 10,
-                                    height: 10,
-                                    backgroundColor: '#000',
-                                },
-                            }}
-                        >
-                            <IoCartOutline className='border-2 rounded-full  p-1 border-zinc-600 hover:scale-95 hover:cursor-pointer hover:bg-zinc-100' size={40} onClick={()=>navigate('/cart')} />
-                        </Badge>
-
-                       
-                        <p className="text-xs text-gray-600">your cart</p>
-                    </div>
-                </div>
-            </div>
+           
         </div>
     );
 };

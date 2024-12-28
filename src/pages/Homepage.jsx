@@ -17,7 +17,7 @@ const Homepage = () => {
             <div className="flex justify-center transition-all ease-in-out duration-200    ">
 
                 {/* Sidebar */}
-                <div className={` ${open ? ' w-3/4 overflow-hidden'  : 'w-0'}  bg-white md:w-1/5  transition-all ease-in-out duration-300   h-screen fixed top-0 left-0  overflow-hidden  text-white z-50 bg-red-600  `}>
+                <div className={` ${open ? ' w-3/4 overflow-hidden'  : 'w-0'}  bg-white md:w-1/5  transition-all ease-in-out duration-300   h-screen fixed top-0 left-0  overflow-hidden  text-white z-50   `}>
                     <Navbar />
                 </div>
 
