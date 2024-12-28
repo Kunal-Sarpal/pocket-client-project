@@ -1,20 +1,31 @@
 import React, { useContext } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { paymentContext } from '../paymentContext';
 import { Button } from '@mui/material';
 import Like from './Like';
+import { addItemToCart } from '../store/reducers/cartReducer';
+import { useNavigate } from 'react-router-dom';
+addItemToCart
 
-const Card = ({key,price,title,stock,like}) => {
+const Card = ({ id, price, title, stock, like }) => {
+    const dispatch = useDispatch();
+    const cartItem = useSelector(state => state.cartdata.cartItems);
+    console.log(cartItem);
     const { setPayment } = useContext(paymentContext);
+    const navigate = useNavigate();
 
     const handlePayment = () => {
-        setPayment((prev) => !prev);
+        // setPayment((prev) => !prev);
+        navigate('/payment')
+    };
+
+    const handleAddToCart = () => {
+        const item = { id, price, title,stock };
+        dispatch(addItemToCart(item));
     };
 
     return (
-        <div key={key} className="shadow-md border border-zinc-300 rounded-lg bg-white hover:shadow-xl transition-shadow duration-300 relative ">
-            {/* Stock Indicator */}
-           
-
+        <div className="shadow-md border border-zinc-300 rounded-lg bg-white hover:shadow-xl transition-shadow duration-300 relative ">
             {/* Image Section */}
             <div className="bg-gray-200 flex items-center justify-center p-2">
                 <img
@@ -30,39 +41,39 @@ const Card = ({key,price,title,stock,like}) => {
                 <hr className="border-t border-zinc-300" />
 
                 <div className="flex gap-2 items-center">
-                    <p className="text-xl text-zinc-700 font-semibold  ">₹{price}</p>
+                    <p className="text-xl text-zinc-700 font-semibold">₹{price}</p>
                     <p className="text-md font-semibold text-zinc-500 pb-1 line-through">₹199</p>
-                    
                 </div>
-                <p className='text-red-500 leading-snug'>
-                    {stock > 0 ? stock + ' items left at this price!' :' item left at this price!'}
+                <p className="text-red-500 leading-snug">
+                    {stock > 0 ? `${stock} items left at this price!` : 'Item left at this price!'}
                 </p>
-               
 
                 {/* Action Buttons */}
                 <div className="flex gap-2">
-                    {/* Primary Action: Buy Now */}
+                    {/* Buy Now Button */}
                     <Button
-                        size='small'
-                        variant='outlined'
-                        color='secondary'
+                        size="small"
+                        variant="outlined"
+                        color="secondary"
                         onClick={handlePayment}
-
                     >
                         Buy
                     </Button>
-                    <Button
-                    size='small'
-                        variant='outlined'
 
+                    {/* Add to Cart Button */}
+                    <Button
+                        size="small"
+                        variant="outlined"
+                        onClick={handleAddToCart}
                     >
                         Add to Cart
                     </Button>
-
-                    {/* Secondary Action: Add to Cart */}
                 </div>
-                
-              <span className='absolute border p-2 border-zinc-400 rounded-full bottom-[-20px] right-[-10px] text-xs text-zinc-500 bg-white'><Like initialLikes={like}/></span>
+
+                {/* Like Component */}
+                <span className="absolute border p-2 border-zinc-400 rounded-full bottom-[-20px] right-[-10px] text-xs text-zinc-500 bg-white">
+                    <Like initialLikes={like} />
+                </span>
             </div>
         </div>
     );

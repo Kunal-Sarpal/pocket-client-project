@@ -5,15 +5,16 @@ import Navbar from '../Components/Navbar';
 import { paymentContext } from '../paymentContext';
 import Payment from '../Components/Payment';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const Homepage = () => {
     const data = useSelector((state) => state.appdata.data)
-    console.log(data[0])
+    // console.log(data[0])
     // const dispatch = useDispatch()
-    const {payment} = useContext(paymentContext);
+    
     return (
         <>
-            {!payment ? <div className="flex justify-center    ">
+            <div className="flex justify-center    ">
 
                 {/* Sidebar */}
                 <div className="md:w-1/5 transition-all ease-in-out duration-300 w-0  h-screen fixed top-0 left-0  overflow-hidden  text-white ">
@@ -33,12 +34,12 @@ const Homepage = () => {
                     {/* Cards Section */}
                     <div className="grid xl:grid-cols-4  grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                         {data.map((item,index) => (
-                            <Card key={index} title={item.title} stock={item.stock} like={item.like} price={item.price} />
+                            <Card key={index} id={item.id} title={item.title} stock={item.stock} like={item.like} price={item.price} />
                         ))}
                        
                     </div>
                 </div>
-            </div> : <div className='w-full bg-green-100 h-screen flex justify-center items-center'><Payment /></div>}
+            </div>
         </>
        
     );

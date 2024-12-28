@@ -5,10 +5,13 @@ import React from 'react';
 import { FaTachometerAlt, FaEnvelope, FaDownload, FaUsers, FaCog, FaVideo, FaCamera } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { SiPocketcasts } from "react-icons/si";
+import { useSelector } from 'react-redux';
 
 
 const Sidebar = () => {
     const navigate = useNavigate();
+    const cartItem = useSelector(state=>state.cartdata.cartItems);
+    console.log(cartItem.length);
     return (
         <div className="text-[#191919] h-screen flex flex-col bg-white">
             {/* Brand Name */}
@@ -48,7 +51,7 @@ const Sidebar = () => {
                     />
                     <div className='border-zinc-600 '>
                         <Badge
-                            badgeContent={3}
+                            badgeContent={cartItem.length}
                             color='error'
                             overlap="circular"
                             sx={{
@@ -60,7 +63,7 @@ const Sidebar = () => {
                                 },
                             }}
                         >
-                            <IoCartOutline className='border-2 rounded-full  p-1 border-zinc-600 hover:scale-95 hover:cursor-pointer hover:bg-zinc-100' size={40} />
+                            <IoCartOutline className='border-2 rounded-full  p-1 border-zinc-600 hover:scale-95 hover:cursor-pointer hover:bg-zinc-100' size={40} onClick={()=>navigate('/cart')} />
                         </Badge>
 
                        

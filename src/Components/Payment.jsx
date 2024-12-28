@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { FaArrowRight, FaTimesCircle } from 'react-icons/fa';  // Import icons
 import { IoMdArrowBack } from "react-icons/io";
 import { paymentContext } from '../paymentContext';
+import { useNavigate } from 'react-router-dom';
 
 
 // Validation function
@@ -27,6 +28,7 @@ const Payment = () => {
             [name]: value
         }));
     };
+    const navigate = useNavigate();
 
     const handleNextStep = () => {
         // Basic validation
@@ -49,29 +51,21 @@ const Payment = () => {
         }
     };
 
-    const handleCancelPayment = () => {
-        setStep(1);  // Reset to step 1 to cancel the payment process
-        setFormData({
-            upiTransactionId: '',
-            email: '',
-            phoneNumber: ''
-        });
-        setErrors({});
-        setIsSubmitted(false);
-    };
+    
 
     return (
-        <div className="max-w-4xl mx-auto p-8 bg-white rounded-lg shadow-lg flex justify-center items-center border-2">
-            <div className="absolute top-4 left-4 p-2 bg-[#9233eaa1] text-white  rounded-full shadow-md hover:shadow-lg transform transition-all duration-300 hover:scale-110 cursor-pointer">
-                <IoMdArrowBack size={30} onClick={() => setPayment((prev) => !prev)} />
+        <div className='w-full h-screen flex justify-center items-center'>
+        <div className=" max-w-4xl   h-fit  mx-auto p-8 bg-white rounded-lg shadow-lg flex justify-center items-center border-2">
+            <div className="absolute top-4 left-4 p-2 bg-[#ccc] text-zinc-500 border-zinc-500 border   rounded-full shadow-md hover:shadow-lg transform transition-all duration-300 hover:scale-110 cursor-pointer z-50">
+                <IoMdArrowBack size={30} onClick={() => {setPayment((prev) => !prev);navigate(-1)}} />
             </div>
             <div className="lg:flex  justify-between items-center">
-                <div className="lg:w-1/2">
+                <div className="lg:w-1/2 p-2 lg:p-0">
                     {/* Step 1: Scanner Screen */}
                         <div className="text-center">
                             <h2 className="text-xl font-semibold text-gray-900 mb-6">Scan UPI QR Code</h2>
-                            <div className='rounded-md shadow-2xl shadow-green-100 border'>
-                                <img className='scale-90' src="https://svrtechnologies.com/wp-content/uploads/upi-scanner-01.webp" alt="UPI QR Code" />
+                            <div className='rounded-md shadow-2xl shadow-green-100 border z-0'>
+                                <img className='scale-90 z-0' src="https://svrtechnologies.com/wp-content/uploads/upi-scanner-01.webp" alt="UPI QR Code" />
                             </div>
                            
                             
@@ -162,6 +156,8 @@ const Payment = () => {
                     
                 </div>
             </div>
+        </div>
+
         </div>
     );
 };
