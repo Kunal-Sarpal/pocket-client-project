@@ -4,7 +4,7 @@ import { addData, getData } from "../reducers/dataReducer";
 export const asyncGetProducts = () => async (dispatch) =>{
      
     try{
-        const response = await axios.get("http://localhost:3000/products"); 
+        const response = await axios.get("http://145.223.19.43:3000/products"); 
         dispatch(getData(response.data))
     }
     catch(error){
@@ -17,7 +17,7 @@ export const asyncCreateProducts = (data) => async (dispatch) =>{
 
      
     try{
-        await axios.post("http://localhost:3000/api/v1/admin/pocket/product/create",data,
+        await axios.post("http://145.223.19.43:3000/api/v1/admin/pocket/product/create",data,
         {headers:{
             "Authorization": `${localStorage.getItem("token")}`,
             "Content-Type": "application/json"
