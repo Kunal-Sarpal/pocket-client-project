@@ -1,15 +1,19 @@
-import React, { useContext, useState } from 'react';
+import React, {  useEffect, useState } from 'react';
 import Card from '../Components/Card';
 import '../index.css';
 import Navbar from '../Components/Navbar';
-import { paymentContext } from '../paymentContext';
-import Payment from '../Components/Payment';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { asyncGetProducts } from '../store/actions/Productaction';
 
 const Homepage = () => {
     const data = useSelector((state) => state.appdata.data)
+    console.log(data)
     const [open,setOpen] = useState(false);
+    const dispatch = useDispatch();
+
+    useEffect(()=>{
+        dispatch(asyncGetProducts())
+    },[])
     // console.log(data[0])
     // const dispatch = useDispatch()
     return (
@@ -38,6 +42,7 @@ const Homepage = () => {
                             </svg>
                         )}
                     </button>
+
                     {/* Header */}
                     <div className="mb-8">
                         <h1 className="text-5xl font-extrabold text-gray-800 mb-4">Shop</h1>
@@ -47,9 +52,10 @@ const Homepage = () => {
                     </div>
 
                     {/* Cards Section */}
+                    {data.length == 0 && <div className='text-xl font-light text-gray-500 mb-4'>No product available..</div>}
                     <div className="grid xl:grid-cols-4  grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                         {data.map((item,index) => (
-                            <Card key={index} id={item.id} title={item.title} stock={item.stock} like={item.like} price={item.price} />
+                            <Card key={index} id={item._id} title={item.title} stock={item.stock} like={item.like} price={item.price} duration={item.duration} image={item.image} unit={item.unit} />
                         ))}
                        
                     </div>

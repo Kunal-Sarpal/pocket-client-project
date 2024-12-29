@@ -20,7 +20,7 @@ const Like = ({ initialLikes }) => {
                 <FaHeart className={`text-lg transition-transform duration-300 ${liked ? "scale-110" : "scale-100"}`} />
             </button>
             <span className="absolute -top-2 -right-2 text-xs bg-zinc-200 text-zinc-600 px-2 py-1 rounded-full shadow-sm">
-                {likes}
+                {likes==null ? 0 : likes}
             </span>
         </div>
     );

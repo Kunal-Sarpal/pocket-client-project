@@ -1,13 +1,13 @@
 import React, { useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { paymentContext } from '../paymentContext';
-import { Button } from '@mui/material';
+import { Button, duration } from '@mui/material';
 import Like from './Like';
 import { addItemToCart } from '../store/reducers/cartReducer';
 import { useNavigate } from 'react-router-dom';
 addItemToCart
 
-const Card = ({ id, price, title, stock, like }) => {
+const Card = ({ id, price, title, stock, like,duration,unit,image }) => {
     const dispatch = useDispatch();
     const cartItem = useSelector(state => state.cartdata.cartItems);
     console.log(cartItem);
@@ -29,7 +29,7 @@ const Card = ({ id, price, title, stock, like }) => {
             {/* Image Section */}
             <div className="bg-gray-200 flex items-center justify-center p-2">
                 <img
-                    src="https://www.scdn.co/i/_global/open-graph-default.png"
+                    src={image}
                     alt="Spotify Premium"
                     className="w-full h-full object-cover rounded-md"
                 />
@@ -43,11 +43,15 @@ const Card = ({ id, price, title, stock, like }) => {
                 <div className="flex gap-2 items-center">
                     <p className="text-xl text-zinc-700 font-semibold">₹{price}</p>
                     <p className="text-md font-semibold text-zinc-500 pb-1 line-through">₹199</p>
+                    <p className="text-gray-600 text-sm font-medium">
+                        for <span className="font-semibold">{duration} {unit}</span>
+                    </p> 
                 </div>
+                
                 <p className="text-red-500 leading-snug">
                     {stock > 0 ? `${stock} items left at this price!` : 'Item left at this price!'}
                 </p>
-
+                   
                 {/* Action Buttons */}
                 <div className="flex gap-2">
                     {/* Buy Now Button */}
@@ -71,9 +75,9 @@ const Card = ({ id, price, title, stock, like }) => {
                 </div>
 
                 {/* Like Component */}
-                <span className="absolute border p-2 border-zinc-400 rounded-full bottom-[-20px] right-[-10px] text-xs text-zinc-500 bg-white">
+                {/* <span className="absolute border p-2 border-zinc-400 rounded-full bottom-[-20px] right-[-10px] text-xs text-zinc-500 bg-white">
                     <Like initialLikes={like} />
-                </span>
+                </span> */}
             </div>
         </div>
     );

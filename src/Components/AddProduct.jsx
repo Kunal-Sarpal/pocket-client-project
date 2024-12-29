@@ -1,135 +1,159 @@
 import React, { useState } from 'react';
-import {
-    Box,
-    Button,
-    TextField,
-    Typography,
-    MenuItem,
-    Select,
-    FormControl,
-    InputLabel,
-    Paper,
-} from '@mui/material';
-import { MdOutlinePhotoLibrary } from 'react-icons/md';
+import { useDispatch } from 'react-redux';
+import { asyncCreateProducts } from '../store/actions/Productaction';
 
 const AddProduct = () => {
-    const [validity, setValidity] = useState({ duration: '', unit: '' });
+    const [formData, setFormData] = useState({
+        title: '',
+        price: '',
+        stock: '',
+        unit: '',
+        duration: '',
+        imageUrl: '', // Image URL for the product
+    });
 
-    const handleProductUpload = (e) => {
-        e.preventDefault();
-        // Handle form submission logic
-        console.log('Uploaded Product:', validity);
+    const [error, setError] = useState('');
+    const dispatch = useDispatch();
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData((prevData) => ({
+            ...prevData,
+            [name]: value,
+        }));
     };
 
-    const handleValidityChange = (field) => (event) => {
-        setValidity({ ...validity, [field]: event.target.value });
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        // You can use FormData or just send a plain object depending on your API requirements.
+        const data = {
+            title: formData.title,
+            price: formData.price,
+            stock: formData.stock,
+            unit: formData.unit,
+            duration: formData.duration,
+            image: formData.imageUrl, // Send image URL instead of file upload
+        };
+
+        try {
+            // Dispatch the async action to add product
+            const token = localStorage.getItem('token');
+            if(!token){
+                return setError('No token found');
+            }
+            try{
+                dispatch(asyncCreateProducts(data));
+
+            }
+            catch(err){
+                setError(err.message);
+            }
+
+            // Clear form data or show success message
+            // setFormData({
+            //     title: '',
+            //     price: '',
+            //     stock: '',
+            //     unit: '',
+            //     duration: '',
+            //     imageUrl: '',
+            // });
+            setError('');
+        } catch (error) {
+            setError('Error uploading product');
+            console.error('Error uploading product:', error);
+        }
     };
 
     return (
-        <div className=' w-full shadow-md'>
-            <div className='border bg-white p-5  flex flex-col gap-2'>
-                <h1 className='font-extrabold w-fit text-3xl mb-3 xl text-zinc-700  '>Add Product
-                    <hr className='mt-2 ' />
-                </h1>
-
-                <TextField
-                    label="Product Name"
-                    name="name"
-                    variant="outlined"
-                    fullWidth
-                    required
-                />
-                <TextField
-                    label="Price (in Rupees)"
-                    name="price"
-                    type="number"
-                    variant="outlined"
-                    fullWidth
-                    required
-                />
-                <TextField
-                    label="Stock Quantity"
-                    name="stock"
-                    type="number"
-                    variant="outlined"
-                    fullWidth
-                    required
-                />
-
-                {/* Validity Input */}
-                <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
-                    <TextField
-                        label="Duration"
-                        name="duration"
-                        type="number"
-                        variant="outlined"
-                        value={validity.duration}
-                        onChange={handleValidityChange('duration')}
-                        fullWidth
+        <div className="max-w-lg mx-auto p-6 bg-white shadow-lg rounded-lg">
+            <form onSubmit={handleSubmit}>
+                <div className="mb-4">
+                    <label className="block text-gray-700 font-semibold">Product Title</label>
+                    <input
+                        type="text"
+                        name="title"
+                        value={formData.title}
+                        onChange={handleChange}
+                        placeholder="Enter product title"
+                        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                         required
                     />
-                    <FormControl fullWidth required>
-                        <InputLabel id="validity-unit-label">Unit</InputLabel>
-                        <Select
-                            labelId="validity-unit-label"
-                            value={validity.unit}
-                            onChange={handleValidityChange('unit')}
-                            label="Unit"
-                        >
-                            <MenuItem value="days">Days</MenuItem>
-                            <MenuItem value="months">Months</MenuItem>
-                            <MenuItem value="years">Years</MenuItem>
-                        </Select>
-                    </FormControl>
-                </Box>
-
-                {/* File Upload */}
-                <Box
-                    sx={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                        gap: 1,
-                        border: '1px solid #ccc',
-                        borderRadius: 1,
-                        padding: 2,
-                        cursor: 'pointer',
-                    }}
-                >
-                    <InputLabel
-                        htmlFor="file-input"
-                        sx={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: 1,
-                            cursor: 'pointer',
-                            fontWeight: 500,
-                            color: '#555',
-                        }}
+                </div>
+                <div className="mb-4">
+                    <label className="block text-gray-700 font-semibold">Price</label>
+                    <input
+                        type="number"
+                        name="price"
+                        value={formData.price}
+                        onChange={handleChange}
+                        placeholder="Enter product price"
+                        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        required
+                    />
+                </div>
+                <div className="mb-4">
+                    <label className="block text-gray-700 font-semibold">Stock Quantity</label>
+                    <input
+                        type="number"
+                        name="stock"
+                        value={formData.stock}
+                        onChange={handleChange}
+                        placeholder="Enter stock quantity"
+                        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        required
+                    />
+                </div>
+                <div className="mb-4">
+                    <label className="block text-gray-700 font-semibold">Unit</label>
+                    <select
+                        name="unit"
+                        value={formData.unit}
+                        onChange={handleChange}
+                        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        required
                     >
-                        Choose a file <MdOutlinePhotoLibrary size={20} />
-                    </InputLabel>
-                    <input type="file" id="file-input" style={{ display: 'none' }} />
-                </Box>
-
-                <Button
-                    type="submit"
-                    variant="outlined"
-                    color='success'
-                    fullWidth
-                    sx={{
-                        textTransform: 'none',
-                        fontSize: '16px',
-                        padding: '10px 20px',
-                        // backgroundColor: '#9333EA',
-                        '&:hover': {
-                            // backgroundColor: '#7c2ab8',
-                        },
-                    }}
-                >
-                    Upload Product
-                </Button>
-            </div>
+                        <option value="">Select Unit</option>
+                        <option value="days">Days</option>
+                        <option value="months">Months</option>
+                        <option value="years">Years</option>
+                    </select>
+                </div>
+                <div className="mb-4">
+                    <label className="block text-gray-700 font-semibold">Duration</label>
+                    <input
+                        type="number"
+                        name="duration"
+                        value={formData.duration}
+                        onChange={handleChange}
+                        placeholder="Enter product duration"
+                        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        required
+                    />
+                </div>
+                <div className="mb-4">
+                    <label className="block text-gray-700 font-semibold">Product Image URL</label>
+                    <input
+                        type="text"
+                        name="imageUrl"
+                        value={formData.imageUrl}
+                        onChange={handleChange}
+                        placeholder="Enter product image URL"
+                        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        required
+                    />
+                </div>
+                <div className="flex justify-center">
+                    <button
+                        type="submit"
+                        className="px-6 py-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    >
+                        Upload Product
+                    </button>
+                </div>
+                {error && <div className="mt-4 text-red-500 text-center">{error}</div>}
+            </form>
         </div>
     );
 };
